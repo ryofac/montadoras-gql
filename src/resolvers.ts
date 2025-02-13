@@ -32,11 +32,20 @@ export const resolvers = {
       await new_montadora.save()
       return new_montadora;
     },
+
+    async deleteVeiculo(_parent: any, _args: any, context: MyGQLContext, _info: any) {
+      let { id:veiculoId } = _args;
+      veiculoId = parseInt(veiculoId);
+      const veiculoToDelete = await Veiculo.findOne({ where: { id: veiculoId } });
+      console.log(veiculoToDelete);
+      await veiculoToDelete?.remove();
+      return veiculoId;
+    },
     
     async createVeiculo(_parent: any, _args: any, context: MyGQLContext, _info: any) {
       const { input: veiculo } = _args;
       
-      const montadora = await Montadora.findOne(veiculo.montadoraId)
+      const montadora = await Montadora.findOne({ where: { id: veiculo.montadoraId } })
       const new_veiculo = await Veiculo.create({ ...veiculo, montadora: montadora?.id });
       console.log(new_veiculo)
       await new_veiculo.save();

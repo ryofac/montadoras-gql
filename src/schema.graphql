@@ -33,5 +33,5 @@ type Mutation {
   createMontadora(input: MontadoraInput!): Montadora
   deleteMontadora(id:ID!): ID 
   createVeiculo(input: VeiculoInput!): Veiculo
-  
+  deleteVeiculo(id:ID!): ID
 }
